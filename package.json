@@ -1,5 +1,5 @@
 {
-  "name": "toastmessage",
+  "name": "domtoastmessage",
   "version": "1.0.0",
   "description": "A DOM function for showing toast message on the Window",
   "main": "toast.js",
