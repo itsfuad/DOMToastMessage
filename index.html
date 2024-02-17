@@ -1,8 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+</head>
+<body>
 
+    <button>Show Toast</button>
 
-let popupTimeout: number | null = null;
+    <script>
+let popupTimeout = null;
 let id = '';
-
 const styles = `
     display: flex;
     flex-direction: column;
@@ -21,8 +30,7 @@ const styles = `
     opacity: 0;
     transition: 100ms ease-in-out;
 `;
-
-function makeId(length: number) {
+function makeId(length) {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     const charactersLength = characters.length;
@@ -31,7 +39,6 @@ function makeId(length: number) {
     }
     return result;
 }
-
 /**
  * Shows a popup message for 1 second
  * @param {string} text Text to show in the popup
@@ -39,41 +46,43 @@ function makeId(length: number) {
  * @param {string} backgroundColor Background color of the popup
  * @param {string} color Text color of the popup
  */
-export function showToastMessage(text: string, timeout: number = 1000, backgroundColor: string = 'rgba(0, 0, 0, 0.8)', color: string = 'white') {
-
-	let popup = document.getElementById(id);
-
-	if (!popup) {
-		popup = document.createElement('div');
+function showToastMessage(text, timeout = 1000, backgroundColor = 'rgba(0, 255, 0, 0.8)', color = 'white') {
+    let popup = document.getElementById(id);
+    if (!popup) {
+        popup = document.createElement('div');
         if (popup instanceof HTMLElement) {
             popup.style.cssText = `
                 ${styles}
                 background-color: ${backgroundColor};
                 color: ${color};
-            `
+            `;
             id = makeId(5);
             popup.classList.add(id);
             document.body.appendChild(popup);
         }
-	}
-
+    }
     id = makeId(5);
     popup.id = id;
-	popup.textContent = text;
-	popup.style.visibility = 'visible';
+    popup.textContent = text;
+    popup.style.visibility = 'visible';
     popup.style.opacity = '1';
-
-	if (popupTimeout) {
-		clearTimeout(popupTimeout);
-	}
-
-	popupTimeout = setTimeout(function () {
-        if (!popup) return;
-		setTimeout(() => {
-			popup?.remove();
-		}, 150);
-		popup.style.visibility = 'hidden';
+    if (popupTimeout) {
+        clearTimeout(popupTimeout);
+    }
+    popupTimeout = setTimeout(function () {
+        if (!popup)
+            return;
+        setTimeout(() => {
+            popup === null || popup === void 0 ? void 0 : popup.remove();
+        }, 150);
+        popup.style.visibility = 'hidden';
         popup.style.opacity = '0';
-		popupTimeout = null;
-	}, timeout);
+        popupTimeout = null;
+    }, 1000);
 }
+        document.querySelector('button').addEventListener('click', () => {
+            showToastMessage('Hello World');
+        });
+    </script>
+</body>
+</html>

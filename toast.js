@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.showToastMessage = void 0;
 let popupTimeout = null;
+let id = '';
 const styles = `
     display: flex;
     flex-direction: column;
@@ -10,7 +11,6 @@ const styles = `
     position: fixed;
     bottom: 100px;
     left: 50%;
-    background: #000000bb;
     padding: 10px;
     border-radius: 15px;
     font-size: 0.6rem;
@@ -21,6 +21,15 @@ const styles = `
     opacity: 0;
     transition: 100ms ease-in-out;
 `;
+function makeId(length) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
 /**
  * Shows a popup message for 1 second
  * @param {string} text Text to show in the popup
@@ -29,28 +38,37 @@ const styles = `
  * @param {string} color Text color of the popup
  */
 function showToastMessage(text, timeout = 1000, backgroundColor = 'rgba(0, 0, 0, 0.8)', color = 'white') {
-    let popup = document.querySelector('.popup-message');
+    let popup = document.getElementById(id);
     if (!popup) {
         popup = document.createElement('div');
         if (popup instanceof HTMLElement) {
-            popup.style.cssText = styles;
-            popup.style.backgroundColor = backgroundColor;
-            popup.style.color = color;
-            popup.classList.add('popup-message');
+            popup.style.cssText = `
+                ${styles}
+                background-color: ${backgroundColor};
+                color: ${color};
+            `;
+            id = makeId(5);
+            popup.classList.add(id);
             document.body.appendChild(popup);
         }
     }
+    id = makeId(5);
+    popup.id = id;
     popup.textContent = text;
-    popup.classList.add('active');
+    popup.style.visibility = 'visible';
+    popup.style.opacity = '1';
     if (popupTimeout) {
         clearTimeout(popupTimeout);
     }
     popupTimeout = setTimeout(function () {
-        popup === null || popup === void 0 ? void 0 : popup.classList.remove('active');
+        if (!popup)
+            return;
         setTimeout(() => {
             popup === null || popup === void 0 ? void 0 : popup.remove();
         }, 150);
+        popup.style.visibility = 'hidden';
+        popup.style.opacity = '0';
         popupTimeout = null;
-    }, 1000);
+    }, timeout);
 }
 exports.showToastMessage = showToastMessage;
