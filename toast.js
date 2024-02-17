@@ -1,3 +1,6 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.showToastMessage = void 0;
 let popupTimeout = null;
 /**
  * Shows a popup message for 1 second
@@ -6,7 +9,7 @@ let popupTimeout = null;
  * @param {string} backgroundColor Background color of the popup
  * @param {string} color Text color of the popup
  */
-export function showToastMessage(text, timeout = 1000, backgroundColor = 'rgba(0, 0, 0, 0.8)', color = 'white') {
+function showToastMessage(text, timeout = 1000, backgroundColor = 'rgba(0, 0, 0, 0.8)', color = 'white') {
     let popup = document.querySelector('.popup-message');
     if (!popup) {
         popup = document.createElement('div');
@@ -23,10 +26,11 @@ export function showToastMessage(text, timeout = 1000, backgroundColor = 'rgba(0
         clearTimeout(popupTimeout);
     }
     popupTimeout = setTimeout(function () {
-        popup?.classList.remove('active');
+        popup === null || popup === void 0 ? void 0 : popup.classList.remove('active');
         setTimeout(() => {
-            popup?.remove();
+            popup === null || popup === void 0 ? void 0 : popup.remove();
         }, 150);
         popupTimeout = null;
     }, 1000);
 }
+exports.showToastMessage = showToastMessage;
