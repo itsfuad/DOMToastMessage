@@ -12,6 +12,9 @@ const styles = `
     bottom: 100px;
     left: 50%;
     padding: 10px;
+    width: max-content;
+    max-width: 98%;
+    text-align: center;
     border-radius: 15px;
     font-size: 0.6rem;
     transform: translateX(-50%);
