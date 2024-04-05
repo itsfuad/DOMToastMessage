@@ -1,6 +1,6 @@
 {
   "name": "@itsfuad/domtoastmessage",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A DOM function for showing toast message on the Window",
   "main": "toast.js",
   "publishConfig": {
