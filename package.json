@@ -1,8 +1,11 @@
 {
-  "name": "domtoastmessage",
+  "name": "@itsfuad/domtoastmessage",
   "version": "1.0.6",
   "description": "A DOM function for showing toast message on the Window",
   "main": "toast.js",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@itsfuad"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
